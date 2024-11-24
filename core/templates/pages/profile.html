@@ -1,0 +1,182 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
+         style="min-height: 600px; background-image: url(https://www.shutterstock.com/image-vector/abstract-vector-illustration-sports-athletics-260nw-2151835569.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div style="width: 100%;" class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello {{ request.user.username }}</h1>
+            <p class="text-white mt-0 mb-5">This is your profile page. Update your details and make your profile shine!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="row justify-content-center">
+                  <a href="#">
+                    <img style="width: 150px;height: 150px;" src="/core/media/{{ request.user.photo }}" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{ request.user.username }}
+                </h3>
+                <div class="h5 font-weight-300">
+                  {{ request.user.email }}
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>Sport - {{ request.user.sport }}
+                </div>
+                <hr class="my-4" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                </div>
+                <div class="col-4 text-right">
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.sport.id_for_label }}">Sport</label>
+                                {{ form.sport }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.phone_number.id_for_label }}">Phone Number</label>
+                                {{ form.phone_number }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                              <label class="form-control-label" for="{{ form.gender.id_for_label }}">Gender</label>
+                              {{ form.gender }}
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.height.id_for_label }}">Height</label>
+                                {{ form.height }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                              <label class="form-control-label" for="{{ form.weight.id_for_label }}">Weight</label>
+                              {{ form.weight }}
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.father_name.id_for_label }}">Father’s Name</label>
+                                {{ form.father_name }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.father_phone_number.id_for_label }}">Father’s Phone Number</label>
+                                {{ form.father_phone_number }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.mother_name.id_for_label }}">Mother’s Name</label>
+                                {{ form.mother_name }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="{{ form.mother_phone_number.id_for_label }}">Mother’s Phone Number</label>
+                                {{ form.mother_phone_number }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="{{ form.photo.id_for_label }}">Profile Photo</label>
+                            {% if user.photo %}
+                <div class="current-photo">
+                    <img style="width: 150px;height: 150px;"  src="{{ user.photo.url }}" alt="Profile Photo" style="max-width: 200px; max-height: 200px;">
+                </div>
+            {% else %}
+                <p>No profile photo available.</p>
+            {% endif %}
+            {{ form.photo }}
+                        </div>
+                    </div>
+                      <div class="col-lg-6">
+                          <div class="form-group">
+                              <label class="form-control-label" for="{{ form.identification.id_for_label }}">Identification (Aadhar/Passport)</label>
+                              {% if user.identification %}
+                  <div class="current-photo">
+                      <img style="width: 150px;height: 150px;"  src="{{ user.identification.url }}" alt="Profile Photo" style="max-width: 200px; max-height: 200px;">
+                  </div>
+              {% else %}
+                  <p>No profile photo available.</p>
+              {% endif %}
+              {{ form.identification }}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+            
+            
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

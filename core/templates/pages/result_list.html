@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
+         style="min-height: 600px; background-image: url(https://www.shutterstock.com/image-vector/abstract-vector-illustration-sports-athletics-260nw-2151835569.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div style="width: 100%;" class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Results</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row justify-content-center">
+        
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h3 class="mb-0">Results</h3>
+                </div>
+                <div class="col-4 text-right">
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container">
+<ul>
+    {% for result in results %}
+    <li>{{ result.athlete.username }} - {{ result.competition.name }} - {{ result.result }}</li>
+    {% empty %}
+    <li>No results found.</li>
+    {% endfor %}
+</ul>
+{% if current_url_name != 'result_see' and request.user.is_Coach or request.user.is_superuser %}
+    <a href="{% url 'create_result' %}">Create New Result</a>
+{% endif %}
+{% if current_url_name == 'result_see' %}
+<a href="{% url 'old_competitions' %}" class="">Back to Competitions</a>
+{%endif%} 
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

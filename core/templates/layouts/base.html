@@ -1,0 +1,192 @@
+<!--
+
+=========================================================
+* Argon Dashboard - v1.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Static assets - Used to load the Favicon -->
+{% load static %}
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <title>
+    Athlete Tracking System Dashboa
+  </title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="/static/assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+  <link href="/static/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="/static/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+<style>
+  /* Chat container styling */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 400px;
+    overflow-y: auto;  /* Allow scrolling when messages overflow */
+}
+.chat-container1 {
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* General message styling */
+.message-container {
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Styling for the current user's messages */
+.current-user {
+    background-color: #5e72e4;  /* Light green for current user's messages */
+    align-self: flex-end;  /* Align current user's messages to the right */
+    text-align: right;
+    border: 1px solid #5e72e4;
+    position: relative;
+    font-weight: 600;
+    color: white;
+}
+
+.current-user .message-content {
+    padding-right: 10px;
+}
+
+/* Styling for other user's messages */
+.other-user {
+    background-color: #f1f1f1;  /* Light gray for other user's messages */
+    align-self: flex-start;  /* Align other user's messages to the left */
+    text-align: left;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.other-user .message-content {
+    padding-left: 10px;
+}
+li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/* Styling for the message input form */
+/* Styling for the message input form */
+/* Styling for the message input form */
+.message-form {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    max-width: 600px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* Styling for the textarea */
+.message-form textarea {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    min-height: 20px;  /* Minimum height for the textarea */
+    max-height: 50px; /* Maximum height for the textarea */
+    resize: vertical;  /* Allow users to resize vertically */
+    width: 100%; /* Full width */
+}
+
+/* Adjust button style */
+.message-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.message-form button:hover {
+    background-color: #0056b3;
+}
+
+.message-form button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
+}
+
+/* Optional: Hover effect for list items */
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* Optional: Increase the button font size */
+.btn-sm {
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+</style>
+  <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+
+<body class="">
+
+  {% include "includes/sidenav.html" %}
+
+  <div class="main-content">
+
+    {% include "includes/navigation.html" %}
+
+    {% block content %}{% endblock content %}
+
+  </div>
+
+  {% include "includes/scripts.html" %}
+
+  <!-- Specific JS goes HERE --> 
+  {% block javascripts %}{% endblock javascripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</body>
+
+</html>

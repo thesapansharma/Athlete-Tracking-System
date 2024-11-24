@@ -1,0 +1,86 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
+         style="min-height: 600px; background-image: url(https://www.shutterstock.com/image-vector/abstract-vector-illustration-sports-athletics-260nw-2151835569.jpg); background-size: cover; background-position: center top;">
+  
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <div class="container-fluid d-flex align-items-center">
+        <div style="width: 100%;" class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Your To Do List </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row justify-content-center">
+        
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h3 class="mb-0">Your To Do List</h3>
+                </div>
+                <div class="col-4 text-right">
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container">
+                <h2></h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary mt-4" type="submit">Add Task</button>
+</form>
+<br/>
+<ul style="font-size: 20px;list-style: none;">
+  <style>
+    .strikethrough {
+  text-decoration: line-through;
+}
+  </style>
+{% for task in tasks %}
+<li>
+  <form method="post" action="{% url 'update_task_status' task.id %}" style="display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; background-color: #f9f9f9; border-radius: 5px; margin: 5px 0;">
+    {% csrf_token %}
+    
+    <!-- Task checkbox -->
+    <label style="display: flex; align-items: center; cursor: pointer;">
+      <input type="checkbox" name="completed" {% if task.completed %}checked{% endif %} onchange="this.form.submit()" style="margin-right: 10px; cursor: pointer;">
+      <span class="{% if task.completed %}strikethrough{% endif %}" style="font-size: 16px; color: #333;">
+        {{ task.task }}
+      </span>
+    </label>
+    
+    <!-- Delete button -->
+    <button type="submit" name="delete" value="true" style="background-color: transparent; color: red; border: none; cursor: pointer; transition: all 0.3s ease;">
+      <i style="font-size: 20px;" class="ni ni-fat-remove"></i>
+    </button>
+  </form>
+</li>
+{% endfor %}
+
+</ul>
+              
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

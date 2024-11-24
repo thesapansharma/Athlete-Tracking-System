@@ -1,0 +1,117 @@
+{% extends 'layouts/base.html' %} {% block title %} Profile {% endblock title %}
+{% block content %}
+
+<!-- Header -->
+<div
+  class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+  style="
+    min-height: 600px;
+    background-image: url(https://www.shutterstock.com/image-vector/abstract-vector-illustration-sports-athletics-260nw-2151835569.jpg);
+    background-size: cover;
+    background-position: center top;
+  "
+>
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div style="width: 100%;" class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">
+          Exercise Plan for {{ sport.name }}
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <h3 class="mb-0">Exercise Plan</h3>
+            </div>
+            <div class="col-4 text-right"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container">
+
+            <div class="current-diet">
+              <h3>Current Exercise Plan</h3>
+              {% if exercise_plans %}
+              <div class="diet-plan">
+                <p>
+                  <strong>Assigned By:</strong> {{exercise_plans.first.coach.username }}
+                </p>
+                <p>
+                  <strong>Assigned On:</strong> {{ exercise_plans.first.assigned_date }}
+                </p>
+                <p>
+                  <strong>Stretching:</strong> {{exercise_plans.first.stretching }}
+                </p>
+                <p>
+                  <strong>Endurance:</strong> {{ exercise_plans.first.endurance}}
+                </p>
+                <p>
+                  <strong>Weights:</strong> {{ exercise_plans.first.weights }}
+                </p>
+                <p>
+                  <strong>Sports-Specific Exercises:</strong> {{exercise_plans.first.sports_specific }}
+                </p>
+                <a
+                  href="{% url 'download_exercise_pdf' exercise_plans.first.id %}"
+                  class="btn btn-primary"
+                  >Download as PDF</a
+                >
+              </div>
+              {% else %}
+              <p>No exercise plan assigned yet.</p>
+              {% endif %}
+            </div>
+            <br />
+            <div class="past-diets">
+              <h3>Past Exercise Plans</h3>
+              <ul>
+                {% for exercise in exercise_plans %}
+                <li>
+                  <p>
+                    <strong>Assigned By:</strong> {{ exercise.coach.username }}
+                  </p>
+                  <p>
+                    <strong>Assigned On:</strong> {{ exercise.assigned_date }}
+                  </p>
+                  <p><strong>Stretching:</strong> {{ exercise.stretching }}</p>
+                  <p><strong>Endurance:</strong> {{ exercise.endurance }}</p>
+                  <p><strong>Weights:</strong> {{ exercise.weights }}</p>
+                  <p>
+                    <strong>Sports-Specific Exercises:</strong> {{exercise.sports_specific }}
+                  </p>
+                  <a
+                    href="{% url 'download_exercise_pdf' exercise.id %}"
+                    class="btn btn-secondary"
+                    >Download as PDF</a
+                  >
+                </li>
+                <br />
+                {% empty %}
+                <p>No past exercise plans available.</p>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

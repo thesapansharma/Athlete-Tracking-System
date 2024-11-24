@@ -1,0 +1,138 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Register {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>{{ msg }}</small>
+              </div>
+              
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if step == 1 %}
+                    <!-- Step 1: Registration Details -->
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                            </div>
+                            {{ form.username }}
+                        </div>
+                        <span class="text-error">{{ form.username.errors }}</span>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                            </div>
+                            {{ form.email }}
+                        </div>
+                        <span class="text-error">{{ form.email.errors }}</span>
+                    </div>
+            
+                    
+                    <div class="form-group">
+                      <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-trophy"></i></span>
+                        </div>
+                        {{ form.sport }}
+                      </div>
+                      <span class="text-error">{{ form.sport.errors }}</span>
+                    </div>
+    
+                    <div class="form-group">
+                      <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                        </div>
+                        {{ form.is_Coach }}<span class="input-group-text"> Is Coach</span>
+                      </div>
+                      <span class="text-error">{{ form.is_Coach.errors }}</span>
+                    </div>
+    
+                    <div class="form-group">
+                      <div class="input-group input-group-alternative">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                        </div>
+                        {{ form.password1 }}
+                      </div>
+                      <span class="text-error">{{ form.password1.errors }}</span>
+                    </div>
+    
+                    <div class="form-group">
+                      <div class="input-group input-group-alternative">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                        </div>
+                        {{ form.password2 }}
+                      </div>
+                      <span class="text-error">{{ form.password2.errors }}</span>
+                    </div>
+    
+                    <div class="row my-4">
+                      <div class="col-12">
+                        <div class="custom-control custom-control-alternative custom-checkbox">
+                          <input class="custom-control-input" id="customCheckRegister" type="checkbox">
+                          <label class="custom-control-label" for="customCheckRegister">
+                            <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-4">Next</button>
+                    </div>
+                {% elif step == 2 %}
+                    <!-- Step 2: OTP Verification -->
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                            </div>
+                            <input type="text" name="otp" id="otp" class="form-control" placeholder="Enter OTP">
+                        </div>
+                        <span class="text-error">{{ form.otp.errors }}</span>
+                    </div>
+            
+                    <div class="text-center mb-3">
+                        <button type="submit" name="resend_otp" class="btn btn-warning">Resend OTP</button>
+                    </div>
+            
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-4">Create Account</button>
+                    </div>
+                {% endif %}
+            </form>
+            
+            
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-3"></div>
+        <div class="col-3">
+          <a href="{% url 'login' %}" class="text-light"><small>Login</small></a>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,140 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} User Detail {% endblock title %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
+     style="min-height: 600px; background-image: url(https://www.shutterstock.com/image-vector/abstract-vector-illustration-sports-athletics-260nw-2151835569.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div style="width: 100%;" class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Profile of {{ athlete.username }}</h1>
+        <p class="text-white mt-0 mb-5">Here are the details for {{ athlete.username }}.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col-xl-10 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Reflection List</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Filter Form -->
+          <form method="get" action="">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ request.GET.title }}">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="start_date">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="end_date">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="exercise_routine_helpful">Exercise Routine Helpful</label>
+                <select class="form-control" id="exercise_routine_helpful" name="exercise_routine_helpful">
+                  <option value="">Any</option>
+                  <option value="Yes" {% if request.GET.exercise_routine_helpful == "Yes" %}selected{% endif %}>Yes</option>
+                  <option value="No" {% if request.GET.exercise_routine_helpful == "No" %}selected{% endif %}>No</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="diet_plan_helpful">Diet Plan Helpful</label>
+                <select class="form-control" id="diet_plan_helpful" name="diet_plan_helpful">
+                  <option value="">Any</option>
+                  <option value="Yes" {% if request.GET.diet_plan_helpful == "Yes" %}selected{% endif %}>Yes</option>
+                  <option value="No" {% if request.GET.diet_plan_helpful == "No" %}selected{% endif %}>No</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="endurance">Endurance</label>
+                <select class="form-control" id="endurance" name="endurance">
+                  <option value="">Any</option>
+                  {% with "12345" as endurance_choices %}
+                      {% for rating in endurance_choices|make_list %}
+                          <option value="{{ rating }}" {% if request.GET.endurance == rating %}selected{% endif %}>{{ rating }}</option>
+                      {% endfor %}
+                  {% endwith %}
+              </select>
+          
+              </div>
+              <div class="form-group col-md-2">
+                <label for="flexibility">Flexibility</label>
+                <select class="form-control" id="flexibility" name="flexibility">
+                  <option value="">Any</option>
+                  {% with "12345" as endurance_choices %}
+                      {% for rating in endurance_choices|make_list %}
+                          <option value="{{ rating }}" {% if request.GET.flexibility == rating %}selected{% endif %}>{{ rating }}</option>
+                      {% endfor %}
+                  {% endwith %}
+              </select>
+          
+          
+              </div>
+              <div class="form-group col-md-2">
+                <label for="progress">Progress</label>
+                <select class="form-control" id="progress" name="progress">
+                  <option value="">Any</option>
+                  {% with "12345" as endurance_choices %}
+                      {% for rating in endurance_choices|make_list %}
+                          <option value="{{ rating }}" {% if request.GET.progress == rating %}selected{% endif %}>{{ rating }}</option>
+                      {% endfor %}
+                  {% endwith %}
+              </select>
+          
+              </div>
+              <div class="form-group col-md-2">
+                <label for="motivation">Motivation</label>
+                <select class="form-control" id="motivation" name="motivation">
+                  <option value="">Any</option>
+                  {% with "12345" as endurance_choices %}
+                      {% for rating in endurance_choices|make_list %}
+                          <option value="{{ rating }}" {% if request.GET.motivation == rating %}selected{% endif %}>{{ rating }}</option>
+                      {% endfor %}
+                  {% endwith %}
+              </select>
+          
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+          </form>
+          <br/>
+          <ul class="list-group mt-3">
+            {% for reflection in reflections %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ reflection.title }} - {{ reflection.date }}
+                    <a href="{% url 'download_reflection_pdf' reflection.id %}" class="btn btn-secondary btn-sm">Download PDF</a>
+                </li>
+            {% empty %}
+                <p>No reflections available.</p>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+
+</div>
+
+{% endblock content %}
